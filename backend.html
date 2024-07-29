@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.2">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {text-decoration: underline ; font-kerning: none; color: #0000e9; -webkit-text-stroke: 0px #0000e9}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1"># myapp/<a href="https://views.py/"><span class="s2">views.py</span></a> from django.http import JsonResponse from django.views.decorators.csrf import csrf_exempt from PIL import Image import openai import tensorflow as tf import numpy as np import json from io import BytesIO openai.api_key = 'your_openai_api_key' def load_model(): # Load your image recognition model here model = tf.keras.models.load_model('path_to_your_model') return model model = load_model() <a href="https://t.me/csrf_exempt"><span class="s2">@csrf_exempt</span></a> def image_recognition(request): if request.method == 'POST' and 'file' in request.FILES: file = request.FILES['file'] image = <a href="https://image.open/"><span class="s2">Image.open</span></a>(file) processed_image = preprocess_image(image) predictions = model.predict(processed_image) result = interpret_predictions(predictions) return JsonResponse({"result": result}) return JsonResponse({"error": "Invalid request"}, status=400) def preprocess_image(image): # Resize and normalize the image as required by your model image = image.resize((224, 224)) image = np.array(image) / 255.0 image = np.expand_dims(image, axis=0) return image def interpret_predictions(predictions): # Interpret the predictions to extract macronutrients and calories macronutrients = { "carbohydrates": predictions[0][0], "proteins": predictions[0][1], "fats": predictions[0][2], "calories": predictions[0][3] } return macronutrients <a href="https://t.me/csrf_exempt"><span class="s2">@csrf_exempt</span></a> def chat(request): if request.method == 'POST': data = json.loads(request.body) user_message = data.get('message', '') response = openai.Completion.create( engine="davinci-codex", prompt=user_message, max_tokens=150 ) return JsonResponse({"response": response.choices[0].text.strip()}) return JsonResponse({"error": "Invalid request"}, status=400)</span></p>
+</body>
+</html>
